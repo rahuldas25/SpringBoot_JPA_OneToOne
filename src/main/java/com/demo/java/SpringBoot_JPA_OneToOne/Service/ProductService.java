@@ -24,6 +24,16 @@ public class ProductService {
         question.setAnswer(answer);
         return questionRepository.save(question);
     }
+    public List<Question> saveAllQuestions(List<Question> questions) {
+        for (Question q : questions) {
+            Answer answer = q.getAnswer();
+            if (answer != null) {
+                answerRepository.save(answer);
+                q.setAnswer(answer);
+            }
+        }
+        return questionRepository.saveAll(questions);
+    }
 
     // Get all Questions
     public List<Question> getAllQuestions() {

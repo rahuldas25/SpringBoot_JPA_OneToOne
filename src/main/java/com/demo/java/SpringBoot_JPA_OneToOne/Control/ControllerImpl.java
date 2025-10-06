@@ -1,6 +1,7 @@
 package com.demo.java.SpringBoot_JPA_OneToOne.Control;
 
 // com.demo.java.SpringBoot_JPA_OneToOne.Dao.ProductRepository;
+import com.demo.java.SpringBoot_JPA_OneToOne.Dao.QuestionRepository;
 import com.demo.java.SpringBoot_JPA_OneToOne.Model.Question;
 import com.demo.java.SpringBoot_JPA_OneToOne.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,9 @@ public class ControllerImpl {
     private ProductService productService;
 
     @PostMapping("/addQA")
-    public Question addQuestion(@RequestBody Question question) {
-        return productService.addQuestionWithAnswer(question, question.getAnswer());
+    public ResponseEntity<List<Question>> addQuestion(@RequestBody List<Question> question) {
+        List<Question> saved = productService.saveAllQuestions(question);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping("/all")
